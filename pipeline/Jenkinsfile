@@ -36,9 +36,13 @@ pipeline{
                     sh "docker stop hw2"
                     sh "docker rm hw2"
                     sh "docker rmi dc/nginx-hw2:latest"
-                    deleteDir()
                 }
             }
+        }
+    }
+    post{
+        always{
+            deleteDir()
         }
     }
 }

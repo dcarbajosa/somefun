@@ -6,6 +6,10 @@ pipeline{
             label 'master'
         }
     }
+     options {
+        buildDiscarder(logRotator(numToKeepStr:'1'))
+        disableConcurrentBuilds()
+    }
     stages{
         stage('Deploy Apps') {
             parallel {
@@ -32,8 +36,8 @@ pipeline{
             }
         }
         stage('Clean up') {
-            steps {
-                input "Exploratory Test"
+            input {
+                message "Exploratory Test"
             }
             post {
                 always {
@@ -48,10 +52,6 @@ pipeline{
                 }
             }
         }
-    }
-    options {
-        buildDiscarder(logRotator(numToKeepStr:'1'))
-        disableConcurrentBuilds()
     }
     post {
         always {

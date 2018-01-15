@@ -49,6 +49,10 @@ pipeline{
             }
         }
     }
+    options {
+        buildDiscarder(logRotator(numToKeepStr:'1'))
+        disableConcurrentBuilds()
+    }
     post {
         always {
             deleteDir()

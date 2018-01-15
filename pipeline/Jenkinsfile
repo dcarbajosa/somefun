@@ -6,6 +6,12 @@ pipeline{
 
       }
     stages{
+        stage("Prepare Workspace"){
+            steps{
+                deleteDir()
+                //checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/dcarbajosa/somefun.git']]])
+            }
+        }
         stage('Deploy Apps') {
             parallel {
                 stage('Deploy App1') {
@@ -38,11 +44,6 @@ pipeline{
                     sh "docker rmi dc/nginx-hw2:latest"
                 }
             }
-        }
-    }
-    post{
-        always{
-            deleteDir()
         }
     }
 }

@@ -36,8 +36,11 @@ pipeline{
             }
         }
         stage('Clean up') {
-            steps {
-                input "Exploratory Test"
+            input {
+                message "Exploratory Test"
+            }
+            steps{
+                echo "Proceed with clean up..."
             }
             post {
                 always {

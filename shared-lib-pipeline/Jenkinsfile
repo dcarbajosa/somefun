@@ -3,6 +3,7 @@
 pipeline{
     agent {
         node {
+            properties([disableConcurrentBuilds()])
             label 'master'
         }
     }

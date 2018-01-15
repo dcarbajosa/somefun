@@ -36,22 +36,22 @@ pipeline{
             }
         }
         stage('Clean up') {
-            input {
-                message "Exploratory Test"
-            }
+            agent none
             steps{
-                echo "Proceed with clean up..."
+                input "Exploratory Test"
             }
             post {
                 always {
-                    deleteDockerApp(
-                        dockerImageName: "dc/nginx-hw1:latest",
-                        appContainerName: "hw1"
-                    )
-                    deleteDockerApp(
-                        dockerImageName: "dc/nginx-hw2:latest",
-                        appContainerName: "hw2"
-                    )
+                    node("master"){
+                        deleteDockerApp(
+                            dockerImageName: "dc/nginx-hw1:latest",
+                            appContainerName: "hw1"
+                        )
+                        deleteDockerApp(
+                            dockerImageName: "dc/nginx-hw2:latest",
+                            appContainerName: "hw2"
+                        )
+                    }
                 }
             }
         }
